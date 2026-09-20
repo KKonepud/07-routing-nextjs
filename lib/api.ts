@@ -10,8 +10,10 @@ const token = process.env.NEXT_PUBLIC_NOTEHUB_TOKEN;
 export const fetchNotes = async (
   page: number,
   perPage: number,
-  search?: string
+  search?: string,
+  tag?
 ): Promise<FetchNotesResponse> => {
+  console.log('TOKEN:', token);
   const response = await axios.get<FetchNotesResponse>(
     'https://notehub-public.goit.study/api/notes',
     {
@@ -19,6 +21,7 @@ export const fetchNotes = async (
         search: search,
         page: page,
         perPage: perPage,
+        ...(tag ? { tag } : {}),
       },
       headers: {
         Authorization: `Bearer ${token}`,

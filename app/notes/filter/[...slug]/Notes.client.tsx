@@ -13,7 +13,11 @@ import NoteForm from '@/components/NoteForm/NoteForm';
 import Loader from '@/components/Loader/Loader';
 import ErrorMessage from '@/components/ErrorMessage/ErrorMessage';
 
-function App() {
+interface NotesClientProps {
+  tag?: string;
+}
+
+function App({ tag }: NotesClientProps) {
   const [query, setQuery] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -25,8 +29,8 @@ function App() {
   const perPage = 12;
 
   const { data, isLoading, isError } = useQuery({
-    queryKey: ['notes', query, currentPage],
-    queryFn: () => fetchNotes(currentPage, perPage, query),
+    queryKey: ['notes', query, currentPage, tag],
+    queryFn: () => fetchNotes(currentPage, perPage, query, tag),
     placeholderData: keepPreviousData,
   });
 
