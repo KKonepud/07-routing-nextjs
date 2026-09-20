@@ -11,7 +11,7 @@ export const fetchNotes = async (
   page: number,
   perPage: number,
   search?: string,
-  tag?
+  tag?: string
 ): Promise<FetchNotesResponse> => {
   console.log('TOKEN:', token);
   const response = await axios.get<FetchNotesResponse>(
